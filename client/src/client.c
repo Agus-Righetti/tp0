@@ -17,9 +17,6 @@ int main(void)
 	logger = iniciar_logger();
 
 	// Usando el logger creado previamente
-
-	logger = log_create("tp0.log", "TP0", 1, LOG_LEVEL_INFO);
-
 	// Escribi: "Hola! Soy un log"
 
 	log_info(logger, "Hola! Soy un Log");
@@ -31,6 +28,9 @@ int main(void)
 
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
+
+	config = config_create("cliente.config");
+	char *key = config_get_string_value(config*, CLAVE);
 
 	// Loggeamos el valor de config
 
@@ -60,6 +60,14 @@ int main(void)
 t_log* iniciar_logger(void)
 {
 	t_log* nuevo_logger;
+
+	nuevo_logger = log_create("tp0.log", "TP0", 1, LOG_LEVEL_INFO);
+
+	if(nuevo_logger == NULL)
+	{
+		printf("No se pudo crear el logger\n");
+		exit(1);
+	}
 
 	return nuevo_logger;
 }
@@ -104,4 +112,5 @@ void terminar_programa(int conexion, t_log* logger, t_config* config)
 	  con las funciones de las commons y del TP mencionadas en el enunciado */
 
 	log_destroy(logger);
+	config_destroy(config);
 }
