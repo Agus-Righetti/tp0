@@ -26,7 +26,7 @@ int main(void)
 
 	config = iniciar_config();
 
-	char *key = config_get_string_value(config, "CLAVE");
+	char *clave = config_get_string_value(config, "CLAVE");
 
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
@@ -37,7 +37,7 @@ int main(void)
 
 	// Loggeamos el valor de config
 
-	log_info(logger, "El valor es: %s", key);
+	log_info(logger, "El valor es: %s", clave);
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
@@ -53,7 +53,7 @@ int main(void)
 
 	// Enviamos al servidor el valor de CLAVE como mensaje
 
-	enviar_mensaje(key, conexion);
+	enviar_mensaje(clave, conexion);
 
 	// Armamos y enviamos el paquete
 
@@ -125,6 +125,7 @@ void paquete(int conexion)
 	t_paquete* paquete;
 
 	// Leemos y esta vez agregamos las lineas al paquete
+
 
 
 	// ¡No te olvides de liberar las líneas y el paquete antes de regresar!
