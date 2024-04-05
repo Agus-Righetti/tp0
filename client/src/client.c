@@ -26,6 +26,8 @@ int main(void)
 
 	config = iniciar_config();
 
+	char *key = config_get_string_value(config, "CLAVE");
+
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
 
@@ -46,11 +48,15 @@ int main(void)
 	// ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
 
 	// Creamos una conexión hacia el servidor
+
 	conexion = crear_conexion(ip, puerto);
 
 	// Enviamos al servidor el valor de CLAVE como mensaje
 
+	enviar_mensaje(key, conexion);
+
 	// Armamos y enviamos el paquete
+
 	paquete(conexion);
 
 	terminar_programa(conexion, logger, config);
@@ -79,7 +85,6 @@ t_config* iniciar_config(void)
 	t_config* nuevo_config;
 
 	nuevo_config = config_create("cliente.config");
-	char *key = config_get_string_value(nuevo_config, "CLAVE");
 
 	if(nuevo_config == NULL)
 	{
@@ -95,6 +100,7 @@ void leer_consola(t_log* logger)
 	char* leido;
 
 	// La primera te la dejo de yapa
+
 	leido = readline("> ");
 
 	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
@@ -107,6 +113,7 @@ void leer_consola(t_log* logger)
 void paquete(int conexion)
 {
 	// Ahora toca lo divertido!
+
 	char* leido;
 	t_paquete* paquete;
 
@@ -132,4 +139,5 @@ void terminar_programa(int conexion, t_log* logger, t_config* config)
 		config_destroy(config);
 	}
 
+	liberar_conexion(conexion);
 }

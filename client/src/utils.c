@@ -1,6 +1,5 @@
 #include "utils.h"
 
-
 void* serializar_paquete(t_paquete* paquete, int bytes)
 {
 	void * magic = malloc(bytes);
@@ -58,7 +57,6 @@ void enviar_mensaje(char* mensaje, int socket_cliente)
 	free(a_enviar);
 	eliminar_paquete(paquete);
 }
-
 
 void crear_buffer(t_paquete* paquete)
 {
