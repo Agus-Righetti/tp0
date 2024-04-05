@@ -37,7 +37,7 @@ int main(void)
 
 	// Loggeamos el valor de config
 
-	log_info(logger, "El valor es: %s", valor);
+	log_info(logger, "El valor es: %s", key);
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
@@ -105,9 +105,16 @@ void leer_consola(t_log* logger)
 
 	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
 
+	while(strcmp(leido, "") != 0)
+	{
+		log_info(logger, "Se leyo: %s", leido);
+		free(leido);
+		leido = readline("> ");
+	}
 
 	// ¡No te olvides de liberar las lineas antes de regresar!
 
+	free(leido);
 }
 
 void paquete(int conexion)
