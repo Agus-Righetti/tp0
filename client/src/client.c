@@ -29,11 +29,13 @@ int main(void)
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
 
-	config = config_create("cliente.config");
-	char *key = config_get_string_value(config*, CLAVE);
+	ip = config_get_string_value(config, "IP");
+	puerto = config_get_string_value(config, "PUERTO");
+	valor = config_get_string_value(config, "VALOR");
 
 	// Loggeamos el valor de config
 
+	log_info(logger, "El valor es: %s", valor);
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
@@ -76,6 +78,15 @@ t_config* iniciar_config(void)
 {
 	t_config* nuevo_config;
 
+	nuevo_config = config_create("cliente.config");
+	char *key = config_get_string_value(nuevo_config, "CLAVE");
+
+	if(nuevo_config == NULL)
+	{
+		printf("No se pudo crear el config\n");
+		exit(2);
+	}
+
 	return nuevo_config;
 }
 
@@ -111,6 +122,14 @@ void terminar_programa(int conexion, t_log* logger, t_config* config)
 	/* Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) 
 	  con las funciones de las commons y del TP mencionadas en el enunciado */
 
-	log_destroy(logger);
-	config_destroy(config);
+	if(logger != NULL)
+	{
+		log_destroy(logger);
+	}
+
+	if(config != NULL)
+	{
+		config_destroy(config);
+	}
+
 }
